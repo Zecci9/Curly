@@ -10,7 +10,7 @@ const backend = ref(null)
 onMounted(async()=>{
 
     const res = await axios.get(
-        `${import.meta.env.VITE_API_URL}/health`
+    `${import.meta.env.VITE_API_URL}/api/v1/health`
     )
 
     backend.value = res.data.data
