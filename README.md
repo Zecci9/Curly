@@ -1,2 +1,2 @@
 # Curly
-A lightweight and extensible content management system built with Go and Vue.
+A lightweight and extensible management system built with Go and Vue.
