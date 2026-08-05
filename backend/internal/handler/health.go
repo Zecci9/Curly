@@ -19,7 +19,8 @@ func Health(c *gin.Context) {
 	logger.Logger.Println("Health check requested")
 
 	response.Success(c, gin.H{
-		"name":   "Curly",
-		"status": "ok",
+		"name":    "Curly",
+		"status":  "running",
+		"version": "v0.0.2",
 	})
 }
