@@ -28,7 +28,7 @@ onMounted(async()=>{
 <h1>Curly</h1>
 
 <p>
-一个使用 Go + Vue 开发的 CMS 系统
+一个使用 Go + Vue 开发的系统
 </p>
 
 
