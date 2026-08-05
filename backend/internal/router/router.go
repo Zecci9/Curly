@@ -31,8 +31,8 @@ func Setup() *gin.Engine {
 	}))
 
 	r.Use(middleware.RequestID())
-
-	r.GET("/health", handler.Health)
+	api := r.Group("/api/v1")
+	api.GET("/health", handler.Health)
 
 	return r
 }

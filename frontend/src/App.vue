@@ -10,10 +10,8 @@ const backend = ref(null)
 onMounted(async()=>{
 
     const res = await axios.get(
-        "http://localhost:8080/health"
+        `${import.meta.env.VITE_API_URL}/health`
     )
-
-    console.log(res)
 
     backend.value = res.data.data
 
@@ -28,7 +26,6 @@ onMounted(async()=>{
 <main>
 
 <h1>Curly</h1>
-
 
 <p>
 一个使用 Go + Vue 开发的 CMS 系统

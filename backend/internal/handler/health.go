@@ -21,6 +21,6 @@ func Health(c *gin.Context) {
 	response.Success(c, gin.H{
 		"name":    "Curly",
 		"status":  "running",
-		"version": "v0.0.2",
+		"version": "v0.0.3",
 	})
 }
