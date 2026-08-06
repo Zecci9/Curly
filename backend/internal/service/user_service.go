@@ -73,3 +73,10 @@ func (s *UserService) Register(
 	return user, nil
 
 }
+func (s *UserService) GetUserByID(
+	id uint,
+) (*model.User, error) {
+
+	return s.UserRepo.FindByID(id)
+
+}

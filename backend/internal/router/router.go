@@ -6,7 +6,6 @@ import (
 	"github.com/Zecci9/curly/backend/internal/middleware"
 	"github.com/Zecci9/curly/backend/internal/repository"
 	"github.com/Zecci9/curly/backend/internal/service"
-
 	"github.com/gin-gonic/gin"
 )
 
@@ -22,6 +21,13 @@ func Setup() *gin.Engine {
 		database.DB,
 	)
 
+	authService := service.NewAuthService(
+		userRepo,
+	)
+
+	authHandler := handler.NewAuthHandler(
+		authService,
+	)
 	userService := service.NewUserService(
 		userRepo,
 	)
@@ -31,7 +37,25 @@ func Setup() *gin.Engine {
 	)
 
 	api := r.Group("/api/v1")
+	authGroup := api.Group("/admin")
 
+	authGroup.Use(
+		middleware.Auth(),
+	)
+
+	authGroup.GET(
+		"/test",
+		func(c *gin.Context) {
+
+			c.JSON(
+				200,
+				gin.H{
+					"message": "通过认证",
+				},
+			)
+
+		},
+	)
 	api.GET(
 		"/health",
 		handler.Health,
@@ -42,5 +66,15 @@ func Setup() *gin.Engine {
 		userHandler.Register,
 	)
 
+	api.POST(
+		"/users/login",
+		authHandler.Login,
+	)
+
+	api.GET(
+		"/users/me",
+		middleware.Auth(),
+		userHandler.Me,
+	)
 	return r
 }
