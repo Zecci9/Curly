@@ -1,6 +1,8 @@
 package handler
 
 import (
+	"strconv"
+
 	"github.com/Zecci9/curly/backend/internal/response"
 	"github.com/Zecci9/curly/backend/internal/service"
 	"github.com/gin-gonic/gin"
@@ -90,6 +92,48 @@ func (h *PostHandler) List(c *gin.Context) {
 	response.Success(
 		c,
 		posts,
+	)
+
+}
+func (h *PostHandler) Detail(c *gin.Context) {
+
+	id, err := strconv.ParseUint(
+		c.Param("id"),
+		10,
+		64,
+	)
+
+	if err != nil {
+
+		response.Error(
+			c,
+			40000,
+			"ID错误",
+		)
+
+		return
+
+	}
+
+	post, err := h.Service.GetPostByID(
+		uint(id),
+	)
+
+	if err != nil {
+
+		response.Error(
+			c,
+			40400,
+			"文章不存在",
+		)
+
+		return
+
+	}
+
+	response.Success(
+		c,
+		post,
 	)
 
 }

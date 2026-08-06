@@ -96,5 +96,10 @@ func Setup() *gin.Engine {
 		"/posts",
 		postHandler.List,
 	)
+	api.GET(
+		"/posts/:id",
+		postHandler.Detail,
+	)
 	return r
+
 }
