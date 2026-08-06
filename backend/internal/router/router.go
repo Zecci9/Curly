@@ -6,13 +6,33 @@ import (
 	"github.com/Zecci9/curly/backend/internal/middleware"
 	"github.com/Zecci9/curly/backend/internal/repository"
 	"github.com/Zecci9/curly/backend/internal/service"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func Setup() *gin.Engine {
 
 	r := gin.Default()
+	r.Use(cors.New(cors.Config{
 
+		AllowOrigins: []string{
+			"*",
+		},
+
+		AllowMethods: []string{
+			"GET",
+			"POST",
+			"PUT",
+			"DELETE",
+			"OPTIONS",
+		},
+
+		AllowHeaders: []string{
+			"Origin",
+			"Content-Type",
+			"Authorization",
+		},
+	}))
 	r.Use(middleware.RequestID())
 
 	// 创建用户模块依赖
