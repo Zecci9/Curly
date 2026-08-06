@@ -68,3 +68,9 @@ Thumbs.db
 # 日志
 *.log
 logs/
+
+# backend environment
+backend/.env
+
+# frontend environment
+frontend/.env
