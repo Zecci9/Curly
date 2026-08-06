@@ -1,8 +1,7 @@
 package handler
 
 import (
-	"net/http"
-
+	"github.com/Zecci9/curly/backend/internal/response"
 	"github.com/Zecci9/curly/backend/internal/service"
 	"github.com/gin-gonic/gin"
 )
@@ -26,23 +25,19 @@ func (h *UserHandler) Register(c *gin.Context) {
 
 	type RegisterRequest struct {
 		Username string `json:"username"`
-
 		Password string `json:"password"`
-
-		Email string `json:"email"`
+		Email    string `json:"email"`
 	}
 
 	var req RegisterRequest
 
 	// 接收JSON
-
 	if err := c.ShouldBindJSON(&req); err != nil {
 
-		c.JSON(
-			http.StatusBadRequest,
-			gin.H{
-				"message": "参数错误",
-			},
+		response.Error(
+			c,
+			40000,
+			"参数错误",
 		)
 
 		return
@@ -56,24 +51,20 @@ func (h *UserHandler) Register(c *gin.Context) {
 
 	if err != nil {
 
-		c.JSON(
-			http.StatusBadRequest,
-			gin.H{
-				"message": err.Error(),
-			},
+		response.Error(
+			c,
+			40001,
+			err.Error(),
 		)
 
 		return
 	}
 
-	c.JSON(
-		http.StatusOK,
+	response.Success(
+		c,
 		gin.H{
-			"message": "注册成功",
-			"data": gin.H{
-				"id":       user.ID,
-				"username": user.Username,
-			},
+			"id":       user.ID,
+			"username": user.Username,
 		},
 	)
 
