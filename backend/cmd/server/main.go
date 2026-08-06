@@ -6,6 +6,7 @@ import (
 	"github.com/Zecci9/curly/backend/internal/config"
 	"github.com/Zecci9/curly/backend/internal/database"
 	"github.com/Zecci9/curly/backend/internal/logger"
+	"github.com/Zecci9/curly/backend/internal/model"
 	"github.com/Zecci9/curly/backend/internal/router"
 )
 
@@ -18,7 +19,10 @@ func main() {
 	fmt.Println("准备连接数据库")
 
 	database.Connect(cfg)
-
+	database.DB.AutoMigrate(
+		&model.User{},
+		&model.Post{},
+	)
 	fmt.Println("数据库函数执行结束")
 
 	logger.Init()

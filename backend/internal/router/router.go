@@ -21,6 +21,17 @@ func Setup() *gin.Engine {
 		database.DB,
 	)
 
+	postRepo := repository.NewPostRepository(
+		database.DB,
+	)
+
+	postService := service.NewPostService(
+		postRepo,
+	)
+
+	postHandler := handler.NewPostHandler(
+		postService,
+	)
 	authService := service.NewAuthService(
 		userRepo,
 	)
@@ -75,6 +86,15 @@ func Setup() *gin.Engine {
 		"/users/me",
 		middleware.Auth(),
 		userHandler.Me,
+	)
+	api.POST(
+		"/posts",
+		middleware.Auth(),
+		postHandler.Create,
+	)
+	api.GET(
+		"/posts",
+		postHandler.List,
 	)
 	return r
 }
