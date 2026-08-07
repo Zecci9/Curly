@@ -1,0 +1,42 @@
+:root,
+:root[data-theme="default"] {
+  --page-bg: #f5f6f7;
+  --surface: rgba(255, 255, 255, 0.88);
+  --surface-soft: rgba(255, 255, 255, 0.64);
+  --surface-strong: #ffffff;
+  --glass: rgba(248, 249, 250, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.78);
+  --border: rgba(30, 35, 43, 0.09);
+  --text-1: #121417;
+  --text-2: #5f6670;
+  --text-3: #8b9199;
+  --accent: #15171b;
+  --accent-hover: #2b2e34;
+  --accent-text: #ffffff;
+  --accent-soft: rgba(79, 111, 255, 0.12);
+  --accent-shadow: rgba(18, 20, 23, 0.14);
+  --selection: rgba(74, 101, 255, 0.18);
+  --focus-ring: rgba(47, 87, 255, 0.48);
+  --code-bg: #111318;
+}
+
+:root[data-color-mode="dark"][data-theme="default"] {
+  --page-bg: #0d0f12;
+  --surface: rgba(24, 27, 32, 0.9);
+  --surface-soft: rgba(30, 34, 40, 0.66);
+  --surface-strong: #171a1f;
+  --glass: rgba(18, 21, 25, 0.74);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.09);
+  --text-1: #f5f7f9;
+  --text-2: #afb5bd;
+  --text-3: #767e89;
+  --accent: #f5f7f9;
+  --accent-hover: #ffffff;
+  --accent-text: #101216;
+  --accent-soft: rgba(89, 105, 255, 0.17);
+  --accent-shadow: rgba(0, 0, 0, 0.3);
+  --selection: rgba(113, 129, 255, 0.28);
+  --focus-ring: rgba(133, 150, 255, 0.68);
+  --code-bg: #08090b;
+}

@@ -1,36 +1,27 @@
-import axios from "axios"
-
+import axios from 'axios'
 
 const request = axios.create({
-
-    baseURL:
-        "http://localhost:8080/api/v1",
-
-    timeout:5000
-
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api/v1',
+  timeout: 8000,
 })
 
+request.interceptors.request.use((config) => {
+  const token = localStorage.getItem('curly.token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
 
-// 自动带Token
-
-request.interceptors.request.use(
-    config=>{
-
-        const token =
-            localStorage.getItem("token")
-
-
-        if(token){
-
-            config.headers.Authorization =
-                "Bearer " + token
-
-        }
-
-
-        return config
-    }
+request.interceptors.response.use(
+  (response) => response.data,
+  (error) => {
+    const message =
+      error.response?.data?.message ||
+      error.message ||
+      '请求失败'
+    return Promise.reject(new Error(message))
+  },
 )
-
 
 export default request

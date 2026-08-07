@@ -1,33 +1,18 @@
 <script setup>
+import { onMounted } from 'vue'
+import { RouterView } from 'vue-router'
+import { useThemeStore } from './stores/theme'
+import { useAuthStore } from './stores/auth'
 
+const theme = useThemeStore()
+const auth = useAuthStore()
+
+onMounted(() => {
+  theme.init()
+  auth.restore()
+})
 </script>
 
-
 <template>
-
-  <router-view />
-
+  <RouterView />
 </template>
-
-
-<style>
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-
-body {
-
-  font-family:
-    "Microsoft YaHei",
-    Arial,
-    sans-serif;
-
-  background: #f5f5f5;
-
-}
-
-</style>

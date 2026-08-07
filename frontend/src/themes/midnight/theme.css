@@ -1,0 +1,20 @@
+:root[data-theme="midnight"] {
+  --page-bg: #07121b;
+  --surface: rgba(12, 28, 40, 0.9);
+  --surface-soft: rgba(15, 34, 47, 0.68);
+  --surface-strong: #0d2030;
+  --glass: rgba(8, 23, 34, 0.72);
+  --glass-border: rgba(156, 210, 255, 0.1);
+  --border: rgba(156, 210, 255, 0.11);
+  --text-1: #eef8ff;
+  --text-2: #a8c2d4;
+  --text-3: #6f8b9e;
+  --accent: #a8e1ff;
+  --accent-hover: #c2eaff;
+  --accent-text: #07121b;
+  --accent-soft: rgba(84, 190, 255, 0.15);
+  --accent-shadow: rgba(0, 105, 174, 0.24);
+  --selection: rgba(84, 190, 255, 0.24);
+  --focus-ring: rgba(84, 190, 255, 0.62);
+  --code-bg: #040a0e;
+}
