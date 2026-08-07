@@ -19,10 +19,12 @@ func main() {
 	fmt.Println("准备连接数据库")
 
 	database.Connect(cfg)
+
 	database.DB.AutoMigrate(
 		&model.User{},
 		&model.Post{},
 	)
+
 	fmt.Println("数据库函数执行结束")
 
 	logger.Init()
@@ -33,5 +35,15 @@ func main() {
 
 	r := router.Setup()
 
-	r.Run(":" + cfg.Port)
+	// HTTPS启动
+	err := r.RunTLS(
+		":8443",
+		"server.crt",
+		"server.key",
+	)
+
+	if err != nil {
+		panic(err)
+	}
+
 }
