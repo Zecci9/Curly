@@ -1,0 +1,5 @@
+<script setup>
+import {ref} from 'vue';import AdminPageHeader from '../../components/admin/AdminPageHeader.vue';import DataTable from '../../components/admin/DataTable.vue'
+const rows=ref([{id:1,username:'admin',email:'admin@test.com',role:'admin',status:'active'},{id:2,username:'editor',email:'editor@example.com',role:'editor',status:'active'}]);const columns=[{key:'username',label:'用户'},{key:'email',label:'邮箱'},{key:'role',label:'角色'},{key:'status',label:'状态'}]
+</script><template><AdminPageHeader title="用户" description="用户与角色入口。正式权限必须由后端 RBAC 控制。"><template #actions><button class="primary-button pressable">＋ 添加用户</button></template></AdminPageHeader><DataTable :columns="columns" :rows="rows"><template #cell-role="{row}"><span class="role">{{row.role}}</span></template><template #cell-status>正常</template><template #actions>管理</template></DataTable><p class="note">当前后端还没有用户管理/RBAC API。</p></template>
+<style scoped>.role{padding:5px 9px;border-radius:99px;background:var(--accent-soft);color:var(--text-1);font-size:.76rem}.note{color:var(--text-3);font-size:.82rem}</style>

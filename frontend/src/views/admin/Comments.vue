@@ -1,0 +1,5 @@
+<script setup>
+import {ref} from 'vue';import AdminPageHeader from '../../components/admin/AdminPageHeader.vue';import DataTable from '../../components/admin/DataTable.vue'
+const rows=ref([{id:1,author:'Aster',content:'这篇文章写得很清楚。',post:'从一个接口开始',status:'pending'},{id:2,author:'Nora',content:'期待插件系统。',post:'为什么要给插件留位置',status:'approved'}]);const columns=[{key:'author',label:'作者'},{key:'content',label:'评论'},{key:'post',label:'文章'},{key:'status',label:'状态'}]
+</script><template><AdminPageHeader title="评论" description="审核、回复与管理站点讨论。"/><DataTable :columns="columns" :rows="rows"><template #cell-status="{row}">{{row.status==='approved'?'已通过':'待审核'}}</template><template #actions="{row}"><button class="mini" v-if="row.status!=='approved'" @click="row.status='approved'">通过</button></template></DataTable><p class="note">评论后端尚未实现，当前为交互预览。</p></template>
+<style scoped>.mini{border:1px solid var(--border);background:var(--surface-soft);border-radius:9px;padding:6px 9px;cursor:pointer}.note{color:var(--text-3);font-size:.82rem}</style>

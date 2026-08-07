@@ -1,9 +1,3 @@
 import request from './request'
-
-export function login(payload) {
-  return request.post('/users/login', payload)
-}
-
-export function getMe() {
-  return request.get('/users/me')
-}
+export const login=(payload)=>request.post('/users/login',payload)
+export const getMe=()=>request.get('/users/me')

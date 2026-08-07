@@ -1,51 +1,23 @@
 import { shallowReactive } from 'vue'
 
-const plugins = []
-const slots = shallowReactive(new Map())
+const plugins=[]
+const slots=shallowReactive(new Map())
+const adminItems=shallowReactive([])
 
-export function registerPlugin(plugin) {
-  if (!plugin?.id) throw new Error('Plugin must provide id')
+export function registerPlugin(plugin){
+  if(!plugin?.id) throw new Error('Plugin requires id')
   plugins.push(plugin)
 
-  for (const entry of plugin.slots || []) {
-    if (!slots.has(entry.name)) slots.set(entry.name, [])
-    slots.get(entry.name).push({
-      pluginId: plugin.id,
-      component: entry.component,
-      props: entry.props || {},
-    })
+  for(const entry of plugin.slots||[]){
+    if(!slots.has(entry.name)) slots.set(entry.name,[])
+    slots.get(entry.name).push({pluginId:plugin.id,...entry})
+  }
+
+  for(const item of plugin.adminMenu||[]){
+    adminItems.push({...item,pluginId:plugin.id})
   }
 }
-
-export function getPlugins() {
-  return [...plugins]
-}
-
-export function getSlotEntries(name) {
-  return slots.get(name) || []
-}
-
-export function installRegisteredPlugins(app, context) {
-  for (const plugin of plugins) {
-    plugin.install?.(app, context)
-  }
-}
-
-/*
-第三方插件示例：
-
-registerPlugin({
-  id: 'comments',
-  name: 'Comments',
-  version: '1.0.0',
-  slots: [
-    {
-      name: 'post.after',
-      component: CommentsWidget,
-    }
-  ],
-  routes: [],
-  settings: [],
-  adminPages: [],
-})
-*/
+export const getPlugins=()=>[...plugins]
+export const getSlotEntries=(name)=>slots.get(name)||[]
+export const getPluginAdminItems=()=>[...adminItems]
+export function installRegisteredPlugins(app,ctx){ plugins.forEach(p=>p.install?.(app,ctx)) }

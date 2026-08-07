@@ -11,7 +11,6 @@ const pinia = createPinia()
 
 app.use(pinia)
 app.use(router)
-
 installRegisteredPlugins(app, { router, pinia })
 
 app.mount('#app')

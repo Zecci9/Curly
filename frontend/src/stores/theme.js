@@ -1,69 +1,29 @@
 import { defineStore } from 'pinia'
 import { getThemes, hasTheme } from '../themes/registry'
 
-const THEME_KEY = 'curly.theme'
-const MODE_KEY = 'curly.color-mode'
+const THEME_KEY='curly.theme'
+const MODE_KEY='curly.color-mode'
 
-export const useThemeStore = defineStore('theme', {
-  state: () => ({
-    themeId: 'default',
-    mode: 'system',
-    initialized: false,
-  }),
-
-  getters: {
-    themes: () => getThemes(),
-  },
-
-  actions: {
-    init() {
-      const savedTheme = localStorage.getItem(THEME_KEY)
-      const savedMode = localStorage.getItem(MODE_KEY)
-
-      if (savedTheme && hasTheme(savedTheme)) this.themeId = savedTheme
-      if (['light', 'dark', 'system'].includes(savedMode)) this.mode = savedMode
-
+export const useThemeStore=defineStore('theme',{
+  state:()=>({ themeId:'default', mode:'system' }),
+  getters:{ themes:()=>getThemes() },
+  actions:{
+    init(){
+      const t=localStorage.getItem(THEME_KEY)
+      const m=localStorage.getItem(MODE_KEY)
+      if(t&&hasTheme(t)) this.themeId=t
+      if(['system','light','dark'].includes(m)) this.mode=m
       this.apply()
-
-      const media = window.matchMedia('(prefers-color-scheme: dark)')
-      media.addEventListener?.('change', () => {
-        if (this.mode === 'system') this.apply()
-      })
-
-      this.initialized = true
+      matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>this.mode==='system'&&this.apply())
     },
-
-    setTheme(id) {
-      if (!hasTheme(id)) return
-      this.themeId = id
-      localStorage.setItem(THEME_KEY, id)
-      this.apply()
-    },
-
-    setMode(mode) {
-      if (!['light', 'dark', 'system'].includes(mode)) return
-      this.mode = mode
-      localStorage.setItem(MODE_KEY, mode)
-      this.apply()
-    },
-
-    cycleMode() {
-      const order = ['system', 'light', 'dark']
-      const next = order[(order.indexOf(this.mode) + 1) % order.length]
-      this.setMode(next)
-    },
-
-    apply() {
-      const root = document.documentElement
-      root.dataset.theme = this.themeId
-
-      const resolved =
-        this.mode === 'system'
-          ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-          : this.mode
-
-      root.dataset.colorMode = resolved
-      root.style.colorScheme = resolved
-    },
-  },
+    setTheme(id){ if(hasTheme(id)){ this.themeId=id; localStorage.setItem(THEME_KEY,id); this.apply() } },
+    setMode(mode){ if(['system','light','dark'].includes(mode)){ this.mode=mode; localStorage.setItem(MODE_KEY,mode); this.apply() } },
+    cycleMode(){ const arr=['system','light','dark']; this.setMode(arr[(arr.indexOf(this.mode)+1)%arr.length]) },
+    apply(){
+      const resolved=this.mode==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'):this.mode
+      document.documentElement.dataset.theme=this.themeId
+      document.documentElement.dataset.colorMode=resolved
+      document.documentElement.style.colorScheme=resolved
+    }
+  }
 })

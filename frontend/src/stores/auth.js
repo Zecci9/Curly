@@ -1,52 +1,32 @@
 import { defineStore } from 'pinia'
-import { login as loginApi, getMe } from '../api/auth'
+import { login, getMe } from '../api/auth'
 
-const TOKEN_KEY = 'curly.token'
+const KEY='curly.token'
 
-export const useAuthStore = defineStore('auth', {
-  state: () => ({
-    token: '',
-    user: null,
-    loading: false,
-  }),
-
-  getters: {
-    isLoggedIn: (state) => Boolean(state.token),
+export const useAuthStore=defineStore('auth',{
+  state:()=>({ token:'', user:null, loading:false }),
+  getters:{
+    isLoggedIn:s=>Boolean(s.token),
+    displayName:s=>s.user?.username||'管理员'
   },
-
-  actions: {
-    restore() {
-      this.token = localStorage.getItem(TOKEN_KEY) || ''
-    },
-
-    async login(username, password) {
-      this.loading = true
-      try {
-        const data = await loginApi({ username, password })
-        const token = data?.data?.token ?? data?.token
-
-        if (!token) throw new Error('后端没有返回 token')
-
-        this.token = token
-        localStorage.setItem(TOKEN_KEY, token)
-
-        try {
-          const me = await getMe()
-          this.user = me?.data ?? me
-        } catch {
-          this.user = { username }
+  actions:{
+    restore(){ this.token=localStorage.getItem(KEY)||'' },
+    async signIn(username,password){
+      this.loading=true
+      try{
+        const res=await login({username,password})
+        const token=res?.data?.token??res?.token
+        if(!token) throw new Error('后端没有返回 token')
+        this.token=token
+        localStorage.setItem(KEY,token)
+        try{
+          const me=await getMe()
+          this.user=me?.data??me
+        }catch{
+          this.user={username}
         }
-
-        return true
-      } finally {
-        this.loading = false
-      }
+      }finally{ this.loading=false }
     },
-
-    logout() {
-      this.token = ''
-      this.user = null
-      localStorage.removeItem(TOKEN_KEY)
-    },
-  },
+    logout(){ this.token=''; this.user=null; localStorage.removeItem(KEY) }
+  }
 })

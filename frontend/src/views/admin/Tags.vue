@@ -1,0 +1,6 @@
+<script setup>
+import {ref} from 'vue';import AdminPageHeader from '../../components/admin/AdminPageHeader.vue'
+const tags=ref([{name:'Go',count:7},{name:'Vue',count:5},{name:'CMS',count:8},{name:'Design',count:3},{name:'Plugin',count:2}]);const input=ref('')
+function add(){if(input.value.trim()){tags.value.push({name:input.value.trim(),count:0});input.value=''}}
+</script><template><AdminPageHeader title="标签" description="轻量地连接相关内容。"/><section class="surface tag-panel"><div class="add"><input v-model="input" placeholder="新标签" @keyup.enter="add"><button class="primary-button pressable" @click="add">添加</button></div><div class="cloud"><button v-for="tag in tags" :key="tag.name" class="tag pressable"><b>#{{tag.name}}</b><small>{{tag.count}} 篇</small></button></div></section></template>
+<style scoped>.tag-panel{padding:20px;border-radius:20px}.add{display:flex;gap:8px}.add input{flex:1;min-height:44px;border:1px solid var(--border);border-radius:12px;background:var(--surface-soft);color:var(--text-1);padding:0 12px}.cloud{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.tag{border:1px solid var(--border);background:var(--surface-soft);border-radius:16px;padding:12px 14px;display:grid;gap:3px;text-align:left;cursor:pointer}.tag small{color:var(--text-3)}</style>

@@ -1,20 +1,21 @@
 :root[data-theme="midnight"] {
-  --page-bg: #07121b;
-  --surface: rgba(12, 28, 40, 0.9);
-  --surface-soft: rgba(15, 34, 47, 0.68);
-  --surface-strong: #0d2030;
-  --glass: rgba(8, 23, 34, 0.72);
-  --glass-border: rgba(156, 210, 255, 0.1);
-  --border: rgba(156, 210, 255, 0.11);
-  --text-1: #eef8ff;
-  --text-2: #a8c2d4;
+  --page-bg: #06121b;
+  --surface: rgba(11,29,42,.9);
+  --surface-solid: #0d2030;
+  --surface-soft: rgba(13,34,48,.68);
+  --glass: rgba(7,22,33,.74);
+  --glass-border: rgba(153,211,255,.10);
+  --border: rgba(153,211,255,.11);
+  --text-1: #edf8ff;
+  --text-2: #a8c3d5;
   --text-3: #6f8b9e;
-  --accent: #a8e1ff;
-  --accent-hover: #c2eaff;
-  --accent-text: #07121b;
-  --accent-soft: rgba(84, 190, 255, 0.15);
-  --accent-shadow: rgba(0, 105, 174, 0.24);
-  --selection: rgba(84, 190, 255, 0.24);
-  --focus-ring: rgba(84, 190, 255, 0.62);
-  --code-bg: #040a0e;
+  --accent: #afe5ff;
+  --accent-text: #06121b;
+  --accent-soft: rgba(84,190,255,.14);
+  --danger: #ff8187;
+  --warning: #ffc071;
+  --success: #71deb1;
+  --shadow-sm: 0 12px 38px rgba(0,0,0,.22);
+  --shadow-md: 0 28px 80px rgba(0,0,0,.34);
+  --focus: rgba(84,190,255,.66);
 }

@@ -1,26 +1,25 @@
-import defaultTheme from './default'
-import midnightTheme from './midnight'
-
 const themes = new Map([
-  [defaultTheme.id, defaultTheme],
-  [midnightTheme.id, midnightTheme],
+  ['default', {
+    id: 'default',
+    name: 'Curly Default',
+    author: 'Curly',
+    version: '0.5.0',
+    description: '清晰、克制、偏阅读。',
+    capabilities: ['light', 'dark', 'glass']
+  }],
+  ['midnight', {
+    id: 'midnight',
+    name: 'Midnight',
+    author: 'Curly',
+    version: '0.5.0',
+    description: '蓝黑色调的主题示例。',
+    capabilities: ['dark', 'glass']
+  }],
 ])
 
 export function registerTheme(theme) {
-  if (!theme?.id || !theme?.name) {
-    throw new Error('Theme must provide id and name')
-  }
+  if (!theme?.id || !theme?.name) throw new Error('Theme requires id and name')
   themes.set(theme.id, theme)
 }
-
-export function getTheme(id) {
-  return themes.get(id)
-}
-
-export function getThemes() {
-  return [...themes.values()]
-}
-
-export function hasTheme(id) {
-  return themes.has(id)
-}
+export const getThemes = () => [...themes.values()]
+export const hasTheme = (id) => themes.has(id)
